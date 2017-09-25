@@ -4314,6 +4314,9 @@ def get_input(prompt=">> "):
         res = raw_input(prompt)
     except NameError:
         res = input(prompt)
+    except EOFError:
+        display(" exiting...")
+        return "exit"
 
     return res
 # END get_input()
