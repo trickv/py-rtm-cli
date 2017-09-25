@@ -101,12 +101,7 @@ from datetime import tzinfo
 from operator import itemgetter
 import string
 import webbrowser
-try:
-    from urllib.request import urlopen
-except ImportError:
-    from urllib import urlopen
-    from urllib import quote
-
+import requests
 
 
 # VARIABLES:
@@ -198,15 +193,10 @@ def login():
 
     # try to connect to the RTM API server
     try:
-        test = urlopen("http://api.rememberthemilk.com/services/rest/")
+        test = requests.get("https://api.rememberthemilk.com/services/rest/")
 
     # when no internet connection is available...
-    except URLError:
-        display("ERROR: Cannot connect to RTM server.")
-        sys.exit(1)
-
-    # if a redirect occurs...
-    if test.geturl() != "http://api.rememberthemilk.com/services/rest/":
+    except:
         display("ERROR: Cannot connect to RTM server.")
         sys.exit(1)
 
@@ -4176,7 +4166,7 @@ def help():
 
     display("NAME")
     display("  rtm -- a command line interface for the Remember the Milk task manager")
-    display("         see http://www.rememberthemilk.com/ for more information.")
+    display("         see https://www.rememberthemilk.com/ for more information.")
     display("")
     display("DESCRIPTION")
     display("  This program gives full command line access to a user's rtm tasks and ")
@@ -4584,28 +4574,28 @@ def main(argv, mode=""):
         if len(args) == 2:
             if args[1] == "planner":
                 display("opening the RTM planner...")
-                webbrowser.open("http://www.rememberthemilk.com/printplanner/"+username, True, True)
+                webbrowser.open("https://www.rememberthemilk.com/printplanner/"+username, True, True)
             elif args[1] == "tasks":
                 display("opening the RTM tasks page...")
-                webbrowser.open("http://www.rememberthemilk.com/home/"+username+"/#section.tasks", True, True)
+                webbrowser.open("https://www.rememberthemilk.com/home/"+username+"/#section.tasks", True, True)
             elif args[1] == "settings":
                 display("opening the RTM settings page...")
-                webbrowser.open("http://www.rememberthemilk.com/home/"+username+"/#section.settings", True, True)
+                webbrowser.open("https://www.rememberthemilk.com/home/"+username+"/#section.settings", True, True)
             elif args[1] == "help":
                 display("opening the RTM help page...")
-                webbrowser.open("http://www.rememberthemilk.com/help/", True, True)
+                webbrowser.open("https://www.rememberthemilk.com/help/", True, True)
             elif args[1] == "search":
                 display("opening RTM advanced serach filters...")
-                webbrowser.open("http://www.rememberthemilk.com/help/answers/search/advanced.rtm", True, True)
+                webbrowser.open("https://www.rememberthemilk.com/help/answers/search/advanced.rtm", True, True)
             elif args[1] == "filters":
                 display("opening RTM advanced serach filters...")
-                webbrowser.open("http://www.rememberthemilk.com/help/answers/search/advanced.rtm", True, True)
+                webbrowser.open("https://www.rememberthemilk.com/help/answers/search/advanced.rtm", True, True)
             else:
                 display("opening RTM...")
-                webbrowser.open("http://www.rememberthemilk.com/home/"+username, True, True)
+                webbrowser.open("https://www.rememberthemilk.com/home/"+username, True, True)
         else:
             display("opening RTM...")
-            webbrowser.open("http://www.rememberthemilk.com/home/"+username, True, True)
+            webbrowser.open("https://www.rememberthemilk.com/home/"+username, True, True)
 
     elif command in ("clean", "clear"):
         clear(filterString=" ".join(args[1:]))
