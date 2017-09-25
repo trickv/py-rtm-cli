@@ -4146,7 +4146,7 @@ def interactive():
     MODE = "interactive"
     cmd = ""
     while (cmd != "exit"):
-        cmd = get_input('>> ')
+        cmd = get_input('rtm>> ')
         cmd = cmd.split(' ')
         main(cmd, mode="interactive")
         genLookupTable()
