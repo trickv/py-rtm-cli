@@ -4427,6 +4427,11 @@ def main(argv, mode=""):
 
     command = args[0]
 
+    # we need to catch a blank string first before doing "command in (x,y,z)" comparisons
+    # because python lists are amazing
+    if command == "":
+        command = "noop"
+
     # Process commands (only one can be given at a time)
     if command == "ls":
         ls(filterString=" ".join(args[1:]))
@@ -4605,11 +4610,6 @@ def main(argv, mode=""):
     elif command == "overdue":
         lsp(filterString="(dueBefore:now and status:incomplete)")
 
-    elif command == "":
-        usage()
-        if MODE != "interactive":
-            sys.exit(2)
-
     elif command in ("help", "?"):
         usage(interactive=True, advanced=False)
 
@@ -4618,6 +4618,9 @@ def main(argv, mode=""):
 
     elif command == "rtm":
         main(args[1:])
+
+    elif command == "noop":
+        pass
 
     else:
         display("ERROR: command " + command + " not recognized")
